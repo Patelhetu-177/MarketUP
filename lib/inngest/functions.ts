@@ -105,7 +105,7 @@ export const sendDailyNewsSummary = inngest.createFunction(
           }
 
           const formattedArticles: MarketNewsArticle[] = articles.map((article: any) => ({
-            title: article.title || "",
+            title: article.headline || "",
             url: article.url || "",
             source: article.source || "",
             datetime: article.datetime || 0,
