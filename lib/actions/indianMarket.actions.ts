@@ -86,10 +86,23 @@ export async function getNews(
         id: publishedAt + index,
         headline: title,
         summary: (item.contentSnippet || item.content || title).slice(0, 300),
+      let source = "Indian Market";
+      try {
+        source = new URL(item.link).hostname.replace("www.", "");
+      } catch {
+        // Keep default source if URL parsing fails
+      }
+
+      const rawArticle: RawNewsArticle = {
+        id: publishedAt + index,
+        headline: title,
+        summary: (item.contentSnippet || item.content || title).slice(0, 300),
         url: item.link.toString(),
         datetime: Math.floor(publishedAt / 1000),
-        source: new URL(item.link).hostname.replace("www.", ""),
+        source,
         image: "",
+        related: matchedSymbol ? `BSE:${matchedSymbol}` : "",
+      };
         related: matchedSymbol ? `BSE:${matchedSymbol}` : "",
       };
 
