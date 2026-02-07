@@ -59,6 +59,9 @@ export function formatTimeAgo(timestamp: number) {
   if (diffInHours >= 1) {
     return `${diffInHours} hour${diffInHours > 1 ? "s" : ""} ago`;
   }
+  if (diffInMinutes <= 0) {
+    return "just now";
+  }
   return `${diffInMinutes} minute${diffInMinutes > 1 ? "s" : ""} ago`;
 }
 
