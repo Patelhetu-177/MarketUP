@@ -16,8 +16,8 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
           <Image
             src="/assets/icons/logo.png"
             alt="MarketUP logo"
-            width={180}
-            height={40}
+            width={400}
+            height={100}
             className="cursor-pointer"
             style={{
               borderRadius: "15px",

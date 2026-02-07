@@ -14,8 +14,8 @@ const Header = async ({ user }: { user: User }) => {
           <Image
             src="/assets/icons/logo.png"
             alt="MarketUP logo"
-            width={150}
-            height={40}
+            width={180}
+            height={80}
             className="cursor-pointer"
             style={{
               borderRadius: "15px",
