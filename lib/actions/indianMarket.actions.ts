@@ -36,6 +36,12 @@ export interface MarketNewsArticle {
   related?: string;
 }
 
+/**
+ * Fetches and return up to six recent Indian market news articles, prioritizing symbol-specific stories when available.
+ *
+ * @param symbols - Optional list of stock symbols to prioritize. Accepted values are case-insensitive and may include leading `NSE:` or `BSE:` prefixes which will be ignored.
+ * @returns An array of up to six MarketNewsArticle objects sorted by recency. When articles matching the provided (or default) symbols exist, symbol-specific articles are returned; otherwise general market articles are returned. If no articles are available or an error occurs, a single fallback market-focused article is returned.
+ */
 export async function getNews(
   symbols?: string[],
 ): Promise<MarketNewsArticle[]> {
