@@ -12,29 +12,26 @@ const RSS_FEEDS = [
   "https://www.business-standard.com/rss/markets-106.rss",
   "https://www.livemint.com/rss/markets",
 ];
-export interface RawNewsArticle {
-  id: number;
-  headline: string;
-  summary: string;
-  url: string;
-  datetime: number;
-  source?: string;
-  image?: string;
-  category?: string;
-  related?: string;
-}
+"use server";
 
-export interface MarketNewsArticle {
-  id: string;
-  headline: string;
-  summary: string;
-  url: string;
-  datetime: number;
-  source: string;
-  image?: string;
-  category: "company" | "market";
-  related?: string;
-}
+import Parser from "rss-parser";
+import {
+  getDateRange,
+  formatArticle,
+  validateArticle,
+  RawNewsArticle,
+  MarketNewsArticle,
+} from "@/lib/utils";
+import { POPULAR_INDIAN_STOCK_SYMBOLS } from "@/lib/constants";
+
+const parser = new Parser();
+
+const RSS_FEEDS = [
+  "https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms",
+  "https://www.moneycontrol.com/rss/marketreports.xml",
+  "https://www.business-standard.com/rss/markets-106.rss",
+  "https://www.livemint.com/rss/markets",
+];
 
 /**
  * Fetches and return up to six recent Indian market news articles, prioritizing symbol-specific stories when available.
