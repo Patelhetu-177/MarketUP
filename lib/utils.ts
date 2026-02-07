@@ -154,7 +154,11 @@ export const formatArticle = (
 ): MarketNewsArticle => ({
   id: String(Date.now() + index),
   headline: article.headline.trim(),
-  summary: article.summary.trim().slice(0, 220) + "...",
+  summary: (() => {
+    const trimmed = article.summary.trim();
+    if (trimmed.length <= 220) return trimmed;
+    return trimmed.slice(0, 220) + "...";
+  })(),
   url: article.url,
   datetime: article.datetime,
   source: article.source || "Indian Market",
