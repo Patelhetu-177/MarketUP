@@ -192,6 +192,7 @@ export function formatChangePercent(changePercent?: number) {
  */
 export function getChangeColorClass(changePercent?: number) {
   if (changePercent === undefined) return "text-gray-400";
+  if (changePercent === 0) return "text-gray-400";
   return changePercent > 0 ? "text-green-500" : "text-red-500";
 }
 
