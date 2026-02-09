@@ -2,6 +2,8 @@
 import { unsubscribeUser } from "@/lib/actions/unsubscribe.action";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const email = searchParams.get("email");
