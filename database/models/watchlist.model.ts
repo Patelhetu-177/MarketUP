@@ -3,7 +3,9 @@ import { Schema, model, models, type Document, type Model } from 'mongoose';
 export interface WatchlistItem extends Document {
   userId: string;
   symbol: string;
-  company: string;
+  name: string;
+  exchange: string;
+  type: string;
   addedAt: Date;
 }
 
@@ -11,7 +13,9 @@ const WatchlistSchema = new Schema<WatchlistItem>(
   {
     userId: { type: String, required: true, index: true },
     symbol: { type: String, required: true, uppercase: true, trim: true },
-    company: { type: String, required: true, trim: true },
+    name: { type: String, required: true, trim: true },
+    exchange: { type: String, required: true, trim: true },
+    type: { type: String, required: true, trim: true },
     addedAt: { type: Date, default: Date.now },
   },
   { timestamps: false }
@@ -21,4 +25,4 @@ const WatchlistSchema = new Schema<WatchlistItem>(
 WatchlistSchema.index({ userId: 1, symbol: 1 }, { unique: true });
 
 export const Watchlist: Model<WatchlistItem> =
-  (models?.Watchlist as Model<WatchlistItem>) || model<WatchlistItem>('Watchlist', WatchlistSchema);    
+  (models?.Watchlist as Model<WatchlistItem>) || model<WatchlistItem>('Watchlist', WatchlistSchema);

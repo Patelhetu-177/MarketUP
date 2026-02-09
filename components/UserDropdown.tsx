@@ -20,11 +20,12 @@ declare global {
   type StockWithWatchlistStatus = any;
 }
 
-// const UserDropdown = ({ user, initialStocks }: {user: User, initialStocks: StockWithWatchlistStatus[]}) => {
 const UserDropdown = ({
   user,
+  initialStocks,
 }: {
   user: User;
+  initialStocks: StockWithWatchlistStatus[];
 }) => {
   const router = useRouter();
 
@@ -80,8 +81,7 @@ const UserDropdown = ({
         </DropdownMenuItem>
         <DropdownMenuSeparator className="hidden sm:block bg-gray-600" />
         <nav className="sm:hidden">
-          {/* <NavItems initialStocks={initialStocks} /> */}
-          <NavItems />
+          <NavItems initialStocks={initialStocks} />
         </nav>
       </DropdownMenuContent>
     </DropdownMenu>

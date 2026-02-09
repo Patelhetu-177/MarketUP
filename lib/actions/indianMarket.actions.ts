@@ -1,20 +1,6 @@
 "use server";
 
 import Parser from "rss-parser";
-import { getDateRange, formatArticle, validateArticle } from "@/lib/utils";
-import { POPULAR_INDIAN_STOCK_SYMBOLS } from "@/lib/constants";
-
-const parser = new Parser();
-
-const RSS_FEEDS = [
-  "https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms",
-  "https://www.moneycontrol.com/rss/marketreports.xml",
-  "https://www.business-standard.com/rss/markets-106.rss",
-  "https://www.livemint.com/rss/markets",
-];
-"use server";
-
-import Parser from "rss-parser";
 import {
   getDateRange,
   formatArticle,
@@ -23,7 +9,7 @@ import {
   MarketNewsArticle,
 } from "@/lib/utils";
 import { POPULAR_INDIAN_STOCK_SYMBOLS } from "@/lib/constants";
-
+import { cache } from "react";
 const parser = new Parser();
 
 const RSS_FEEDS = [
@@ -33,12 +19,6 @@ const RSS_FEEDS = [
   "https://www.livemint.com/rss/markets",
 ];
 
-/**
- * Fetches and return up to six recent Indian market news articles, prioritizing symbol-specific stories when available.
- *
- * @param symbols - Optional list of stock symbols to prioritize. Accepted values are case-insensitive and may include leading `NSE:` or `BSE:` prefixes which will be ignored.
- * @returns An array of up to six MarketNewsArticle objects sorted by recency. When articles matching the provided (or default) symbols exist, symbol-specific articles are returned; otherwise general market articles are returned. If no articles are available or an error occurs, a single fallback market-focused article is returned.
- */
 export async function getNews(
   symbols?: string[],
 ): Promise<MarketNewsArticle[]> {
@@ -79,16 +59,7 @@ export async function getNews(
         upperTitle.includes(sym),
       );
 
-      const rawArticle: RawNewsArticle = {
-        id: publishedAt + index,
-        headline: title,
-        summary: (item.contentSnippet || item.content || title).slice(0, 300),
-      let source = "Indian Market";
-      try {
-        source = new URL(item.link).hostname.replace("www.", "");
-      } catch {
-        // Keep default source if URL parsing fails
-      }
+      const source = new URL(item.link.toString()).hostname.replace("www.", "");
 
       const rawArticle: RawNewsArticle = {
         id: publishedAt + index,
@@ -98,8 +69,6 @@ export async function getNews(
         datetime: Math.floor(publishedAt / 1000),
         source,
         image: "",
-        related: matchedSymbol ? `BSE:${matchedSymbol}` : "",
-      };
         related: matchedSymbol ? `BSE:${matchedSymbol}` : "",
       };
 
@@ -167,29 +136,69 @@ export async function getNews(
   }
 }
 
-// export const searchStocks = cache(
-//   async (query?: string): Promise<StockWithWatchlistStatus[]> => {
-//     try {
-//       const trimmed = query?.trim().toUpperCase() ?? '';
+export const searchStocks = cache(
+  async (query?: string): Promise<StockWithWatchlistStatus[]> => {
+    try {
+      const trimmed =
+        typeof query === "string" ? query.trim().toUpperCase() : "";
 
-//       return POPULAR_INDIAN_STOCK_SYMBOLS
-//         .filter((s) =>
-//           trimmed ? s.includes(trimmed) : true
-//         )
-//         .slice(0, 15)
-//         .map((s) => {
-//           const symbol = s.replace(/^NSE:/, '');
-//           return {
-//             symbol: `BSE:${symbol}`,
-//             name: symbol,
-//             exchange: 'BSE',
-//             type: 'Equity',
-//             isInWatchlist: false,
-//           };
-//         });
-//     } catch (err) {
-//       console.error('Indian BSE searchStocks error:', err);
-//       return [];
-//     }
-//   }
-// );
+      let results: {
+        symbol: string;
+        description: string;
+        displaySymbol: string;
+        type: string;
+        __exchange?: string;
+      }[] = [];
+
+      if (!trimmed) {
+        const top = POPULAR_INDIAN_STOCK_SYMBOLS.slice(0, 10);
+
+        results = top.map((sym) => {
+          const clean = sym.replace(/^NSE:|^BSE:/, "").toUpperCase();
+          return {
+            symbol: clean,
+            description: clean,
+            displaySymbol: clean,
+            type: "Equity",
+            __exchange: "BSE",
+          };
+        });
+      } else {
+        results = POPULAR_INDIAN_STOCK_SYMBOLS.map((sym) => {
+          const clean = sym.replace(/^NSE:|^BSE:/, "").toUpperCase();
+          return {
+            symbol: clean,
+            description: clean,
+            displaySymbol: clean,
+            type: "Equity",
+            __exchange: "BSE",
+          };
+        }).filter(
+          (r) => r.symbol.includes(trimmed) || r.description.includes(trimmed),
+        );
+      }
+
+      const mapped: StockWithWatchlistStatus[] = results
+        .map((r) => {
+          const upper = r.symbol.toUpperCase();
+          const name = r.description || upper;
+          const exchange = r.__exchange || "BSE";
+          const type = r.type || "Equity";
+
+          return {
+            symbol: `BSE:${upper}`,
+            name,
+            exchange,
+            type,
+            isInWatchlist: false,
+          };
+        })
+        .slice(0, 15);
+
+      return mapped;
+    } catch (err) {
+      console.error("Indian BSE searchStocks error:", err);
+      return [];
+    }
+  },
+);
