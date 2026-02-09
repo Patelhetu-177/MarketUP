@@ -4,16 +4,14 @@ import { serve } from 'inngest/next';
 import { inngest } from '@/lib/inngest/client';
 import { sendSignUpEmail, sendDailyNewsSummary } from '@/lib/inngest/functions';
 
-export const dynamic = 'force-dynamic';
-
-export const { GET, POST, PUT } = serve({
+const handler = serve({
   client: inngest,
   functions: [sendSignUpEmail, sendDailyNewsSummary],
   streaming: 'allow',
-  fetch: (url, options) => {
-    return fetch(url, {
-      ...options,
-      cache: 'no-store',
-    });
-  },
 });
+
+export const GET = handler.GET;
+export const POST = handler.POST;
+export const PUT = handler.PUT;
+
+export const dynamic = 'force-dynamic';
