@@ -16,9 +16,11 @@ export const transporter = nodemailer.createTransport({
 })
 
 export const sendWelcomeEmail = async ({ email, name, intro }: WelcomeEmailData) => {
+    const unsubscribeUrl = `${process.env.BETTER_AUTH_URL}/api/unsubscribe?email=${encodeURIComponent(email)}`;
     const htmlTemplate = WELCOME_EMAIL_TEMPLATE
         .replace('{{name}}', name)
-        .replace('{{intro}}', intro);
+        .replace('{{intro}}', intro)
+        .replace('{{unsubscribeUrl}}', unsubscribeUrl);
 
     const mailOptions = {
         from: `"MarketUP" <hetup9432@gmail.com>`,
@@ -34,9 +36,11 @@ export const sendWelcomeEmail = async ({ email, name, intro }: WelcomeEmailData)
 export const sendNewsSummaryEmail = async (
     { email, date, newsContent }: { email: string; date: string; newsContent: string }
 ): Promise<void> => {
+    const unsubscribeUrl = `${process.env.BETTER_AUTH_URL}/api/unsubscribe?email=${encodeURIComponent(email)}`;
     const htmlTemplate = NEWS_SUMMARY_EMAIL_TEMPLATE
         .replace('{{date}}', date)
-        .replace('{{newsContent}}', newsContent);
+        .replace('{{newsContent}}', newsContent)
+        .replace('{{unsubscribeUrl}}', unsubscribeUrl);
 
     const mailOptions = {
         from: `"MarketUP News" <hetup9432@gmail.com>`,

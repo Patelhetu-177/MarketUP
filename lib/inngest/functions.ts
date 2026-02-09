@@ -5,7 +5,7 @@ import {
 } from "@/lib/inngest/prompts";
 import { sendNewsSummaryEmail, sendWelcomeEmail } from "@/lib/nodemailer";
 import { getAllUsersForNewsEmail } from "@/lib/actions/user.actions";
-import { getWatchlistSymbolsByEmail } from "../actions/watchlist.actions";
+import { getWatchlistSymbols } from "../actions/watchlist.actions";
 import { getNews } from "../actions/indianMarket.actions";
 import { getFormattedTodayDate } from "@/lib/utils";
 
@@ -72,9 +72,10 @@ export const sendSignUpEmail = inngest.createFunction(
 );
 
 export const sendDailyNewsSummary = inngest.createFunction(
+
   { id: "daily-news-summary" },
     [{ event: "app/send.daily.news" }, { cron: "30 6 * * *" }], // 12 PM IST
-//   [{ event: "app/send.daily.news" }, { cron: "*/2 * * * *" }],
+  // [{ event: "app/send.daily.news" }, { cron: "*/2 * * * *" }],
 
   async ({ step }) => {
     const users = (await step.run(
@@ -94,7 +95,8 @@ export const sendDailyNewsSummary = inngest.createFunction(
 
       for (const user of users) {
         try {
-          const symbols = await getWatchlistSymbolsByEmail(user.email);
+          // Pass user.email to fetch symbols for this specific user
+          const symbols = await getWatchlistSymbols(user.email);
 
           let articles = await getNews(symbols);
           articles = articles.slice(0, 6);

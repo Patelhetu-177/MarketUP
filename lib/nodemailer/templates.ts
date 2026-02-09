@@ -150,7 +150,7 @@ export const WELCOME_EMAIL_TEMPLATE = `<!DOCTYPE html>
                             
                             <!-- Footer Text -->
                             <p class="mobile-text dark-text-muted" style="margin: 40px 0 0 0; font-size: 14px; line-height: 1.5; color: #CCDADC !important; text-align: center;">
-                                <a href="#" style="color: #CCDADC !important; text-decoration: underline;">Unsubscribe</a> | 
+                                <a href="{{unsubscribeUrl}}" style="color: #CCDADC !important; text-decoration: underline;">Unsubscribe</a> |
                                 <a href="https://stock-market-dev.vercel.app/" style="color: #CCDADC !important; text-decoration: underline;">Visit MarketUP</a><br>
                                 © 2025 MarketUP
                             </p>
@@ -286,7 +286,7 @@ export const NEWS_SUMMARY_EMAIL_TEMPLATE = `<!DOCTYPE html>
                                     You're receiving this because you subscribed to MarketUP news updates.
                                 </p>
                                 <p style="margin: 0 0 10px 0; font-size: 14px; line-height: 1.5; color: #CCDADC !important;">
-                                    <a href="#" style="color: #CCDADC !important; text-decoration: underline;">Unsubscribe</a> | 
+                                    <a href="{{unsubscribeUrl}}" style="color: #CCDADC !important; text-decoration: underline;">Unsubscribe</a> |
                                     <a href="https://MarketUP.app" style="color: #CCDADC !important; text-decoration: underline;">Visit MarketUP</a>
                                 </p>
                                 <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #CCDADC !important;">
@@ -495,7 +495,7 @@ export const STOCK_ALERT_UPPER_EMAIL_TEMPLATE = `<!DOCTYPE html>
                                     You're receiving this because you subscribed to MarketUP news updates.
                                 </p>
                                 <p style="margin: 0 0 10px 0; font-size: 14px; line-height: 1.5; color: #CCDADC !important;">
-                                    <a href="#" style="color: #CCDADC !important; text-decoration: underline;">Unsubscribe</a> | 
+                                    <a href="{{unsubscribeUrl}}" style="color: #CCDADC !important; text-decoration: underline;">Unsubscribe</a> |
                                     <a href="https://MarketUP.app" style="color: #CCDADC !important; text-decoration: underline;">Visit MarketUP</a>
                                 </p>
                                 <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #CCDADC !important;">
@@ -704,7 +704,7 @@ export const STOCK_ALERT_LOWER_EMAIL_TEMPLATE = `<!DOCTYPE html>
                                     You're receiving this because you subscribed to MarketUP news updates.
                                 </p>
                                 <p style="margin: 0 0 10px 0; font-size: 14px; line-height: 1.5; color: #CCDADC !important;">
-                                    <a href="#" style="color: #CCDADC !important; text-decoration: underline;">Unsubscribe</a> | 
+                                    <a href="{{unsubscribeUrl}}" style="color: #CCDADC !important; text-decoration: underline;">Unsubscribe</a> |
                                     <a href="https://MarketUP.app" style="color: #CCDADC !important; text-decoration: underline;">Visit MarketUP</a>
                                 </p>
                                 <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #CCDADC !important;">
@@ -924,7 +924,7 @@ export const VOLUME_ALERT_EMAIL_TEMPLATE = `<!DOCTYPE html>
                                     You're receiving this because you subscribed to MarketUP news updates.
                                 </p>
                                 <p style="margin: 0 0 10px 0; font-size: 14px; line-height: 1.5; color: #CCDADC !important;">
-                                    <a href="#" style="color: #CCDADC !important; text-decoration: underline;">Unsubscribe</a> | 
+                                    <a href="{{unsubscribeUrl}}" style="color: #CCDADC !important; text-decoration: underline;">Unsubscribe</a> |
                                     <a href="https://MarketUP.app" style="color: #CCDADC !important; text-decoration: underline;">Visit MarketUP</a>
                                 </p>
                                 <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #CCDADC !important;">
