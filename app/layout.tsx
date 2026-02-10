@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   description: "Track real-time stock prices, market trends, get personalized alerts and details company insights with MarketUP",
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{

@@ -88,7 +88,6 @@ npm run dev
 npx inngest-cli@latest dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) to explore the platform.
 
 <a name="project-structure"></a>
 ## 📂 Project Structure
@@ -130,7 +129,7 @@ market-up/
 
 - **Emails not sending?** Ensure you're using an **App Password** for Gmail, not your standard password.
 - **AI Summary empty?** Make sure you have added at least one stock to your watchlist. If the watchlist is empty, the system defaults to general market news.
-- **Inngest functions not appearing?** Ensure the Inngest Dev Server is running (`npx inngest-cli dev`) and pointing to `http://localhost:3000/api/inngest`.
+- **Inngest functions not appearing?** Ensure the Inngest Dev Server is running (`npx inngest-cli dev`) 
 
 ---
 Built with ❤️ for the next generation of Indian Investors.
