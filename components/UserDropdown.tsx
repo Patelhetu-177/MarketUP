@@ -87,4 +87,5 @@ const UserDropdown = ({
     </DropdownMenu>
   );
 };
+
 export default UserDropdown;

@@ -2,7 +2,10 @@
 
 import { useEffect, useState, useTransition } from "react";
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { isInWatchlist, toggleWatchlist } from "@/lib/actions/watchlist.actions";
+import {
+  isInWatchlist,
+  toggleWatchlist,
+} from "@/lib/actions/watchlist.actions";
 
 interface WatchlistButtonProps {
   symbol: string;
@@ -38,16 +41,21 @@ export function WatchlistButton({
   const handleToggle = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     startTransition(async () => {
       const newState = await toggleWatchlist({ symbol, name, exchange, type });
-      setInWatchlist(prev => newState);
+      setInWatchlist((prev) => newState);
     });
   };
 
-  const label = variant === "icon" 
-    ? inWatchlist ? "" : "" 
-    : inWatchlist ? "Remove from Watchlist" : "Add to Watchlist";
+  const label =
+    variant === "icon"
+      ? inWatchlist
+        ? ""
+        : ""
+      : inWatchlist
+        ? "Remove from Watchlist"
+        : "Add to Watchlist";
 
   if (!mounted) return null;
 
@@ -59,8 +67,10 @@ export function WatchlistButton({
             <button
               onClick={handleToggle}
               disabled={isPending}
-              className={`ml-auto flex items-center justify-center text-5xl hover:scale-110 transition-all duration-200 ${className} ${isPending ? 'opacity-50 cursor-not-allowed' : ''}`}
-              aria-label={inWatchlist ? "Remove from watchlist" : "Add to watchlist"}
+              className={`ml-auto flex items-center justify-center text-5xl hover:scale-110 transition-all duration-200 ${className} ${isPending ? "opacity-50 cursor-not-allowed" : ""}`}
+              aria-label={
+                inWatchlist ? "Remove from watchlist" : "Add to watchlist"
+              }
             >
               {inWatchlist ? (
                 <span className="text-yellow-400 hover:text-yellow-500">★</span>
@@ -70,11 +80,11 @@ export function WatchlistButton({
             </button>
           </Tooltip.Trigger>
           <Tooltip.Portal>
-            <Tooltip.Content 
+            <Tooltip.Content
               className="z-50 rounded-md bg-gray-900 px-2 py-1 text-xs text-white shadow-lg"
               sideOffset={5}
             >
-              {inWatchlist ? 'Remove from watchlist' : 'Add to watchlist'}
+              {inWatchlist ? "Remove from watchlist" : "Add to watchlist"}
               <Tooltip.Arrow className="fill-gray-900" />
             </Tooltip.Content>
           </Tooltip.Portal>
@@ -88,12 +98,12 @@ export function WatchlistButton({
       onClick={handleToggle}
       disabled={isPending}
       className={`px-4 py-2 w-full rounded-md text-sm font-medium transition-colors ${
-        inWatchlist 
-          ? 'bg-red-50 text-red-600 hover:bg-red-100' 
-          : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
-      } ${isPending ? 'opacity-50 cursor-not-allowed' : ''}`}
+        inWatchlist
+          ? "bg-red-50 text-red-600 hover:bg-red-100"
+          : "bg-blue-50 text-blue-600 hover:bg-blue-100"
+      } ${isPending ? "opacity-50 cursor-not-allowed" : ""}`}
     >
-      {isPending ? 'Processing...' : label}
+      {isPending ? "Processing..." : label}
     </button>
   );
 }

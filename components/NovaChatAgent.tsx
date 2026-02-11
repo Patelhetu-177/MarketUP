@@ -1,48 +1,47 @@
-'use client';
+"use client";
 
-import { useState, useRef, useEffect, useMemo } from 'react';
-import { Send, X, MessageSquare, Bot } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import { useState, useRef, useEffect, useMemo } from "react";
+import { Send, X, MessageSquare, Bot } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 type Message = {
   id: string;
   content: string;
-  role: 'user' | 'assistant';
+  role: "user" | "assistant";
   timestamp: number;
 };
 
 export function NovaChatAgent() {
   const [isOpen, setIsOpen] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [sessionId, setSessionId] = useState('');
+  const [sessionId, setSessionId] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Initialize Session and Welcome Message
   useEffect(() => {
-    const storedSessionId = localStorage.getItem('novaSessionId');
-    const sid = storedSessionId || `nova-${Math.random().toString(36).substring(2, 11)}`;
-    
+    const storedSessionId = localStorage.getItem("novaSessionId");
+    const sid =
+      storedSessionId || `nova-${Math.random().toString(36).substring(2, 11)}`;
+
     if (!storedSessionId) {
-      localStorage.setItem('novaSessionId', sid);
+      localStorage.setItem("novaSessionId", sid);
     }
     setSessionId(sid);
 
     setMessages([
       {
-        id: 'welcome',
+        id: "welcome",
         content: "Hi 👋 I'm Nova. Ask me anything — I'm here to help.",
-        role: 'assistant',
+        role: "assistant",
         timestamp: Date.now(),
       },
     ]);
   }, []);
 
-  // Auto-scroll to bottom
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isLoading]);
 
   const handleSendMessage = async (e: React.FormEvent) => {
@@ -53,23 +52,23 @@ export function NovaChatAgent() {
     const userMessage: Message = {
       id: Date.now().toString(),
       content: trimmedInput,
-      role: 'user',
+      role: "user",
       timestamp: Date.now(),
     };
 
     setMessages((prev) => [...prev, userMessage]);
-    setInputValue('');
+    setInputValue("");
     setIsLoading(true);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5678';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5678";
       const response = await fetch(`${apiUrl}/webhook/webhook/ai-agent-chat`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: trimmedInput,
           sessionId,
-          pageUrl: typeof window !== 'undefined' ? window.location.href : '',
+          pageUrl: typeof window !== "undefined" ? window.location.href : "",
         }),
       });
 
@@ -82,7 +81,7 @@ export function NovaChatAgent() {
         {
           id: (Date.now() + 1).toString(),
           content: replyText || "I'm not sure how to respond to that.",
-          role: 'assistant',
+          role: "assistant",
           timestamp: Date.now(),
         },
       ]);
@@ -92,7 +91,7 @@ export function NovaChatAgent() {
         {
           id: `error-${Date.now()}`,
           content: `⚠️ Sorry, I encountered an error: ${error.message}`,
-          role: 'assistant',
+          role: "assistant",
           timestamp: Date.now(),
         },
       ]);
@@ -103,7 +102,6 @@ export function NovaChatAgent() {
 
   return (
     <>
-      {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(true)}
         className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
@@ -112,13 +110,13 @@ export function NovaChatAgent() {
         <MessageSquare className="h-6 w-6" />
       </button>
 
-      {/* Chat Window */}
       <div
         className={`fixed bottom-24 right-6 z-50 flex h-[600px] w-[400px] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl transition-all duration-300 ease-in-out ${
-          isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0 pointer-events-none'
+          isOpen
+            ? "translate-y-0 opacity-100"
+            : "translate-y-4 opacity-0 pointer-events-none"
         }`}
       >
-        {/* Header */}
         <div className="flex items-center justify-between border-b border-border bg-card p-4">
           <div className="flex items-center space-x-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
@@ -128,7 +126,9 @@ export function NovaChatAgent() {
               <h3 className="text-sm font-semibold">Nova</h3>
               <div className="flex items-center gap-1.5">
                 <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Online</p>
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                  Online
+                </p>
               </div>
             </div>
           </div>
@@ -140,21 +140,20 @@ export function NovaChatAgent() {
           </button>
         </div>
 
-        {/* Messages Container */}
         <div className="flex-1 space-y-4 overflow-y-auto p-4 scrollbar-thin">
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
                 className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm shadow-sm ${
-                  message.role === 'user'
-                    ? 'bg-primary text-primary-foreground rounded-tr-none'
-                    : 'bg-muted text-foreground rounded-tl-none'
+                  message.role === "user"
+                    ? "bg-primary text-primary-foreground rounded-tr-none"
+                    : "bg-muted text-foreground rounded-tl-none"
                 }`}
               >
-                {message.role === 'assistant' ? (
+                {message.role === "assistant" ? (
                   <article className="prose prose-sm prose-stone dark:prose-invert max-w-none break-words">
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
                       {message.content}
@@ -166,7 +165,7 @@ export function NovaChatAgent() {
               </div>
             </div>
           ))}
-          
+
           {isLoading && (
             <div className="flex justify-start">
               <div className="bg-muted rounded-2xl rounded-tl-none px-4 py-3 flex space-x-1.5">
@@ -180,7 +179,10 @@ export function NovaChatAgent() {
         </div>
 
         {/* Input Form */}
-        <form onSubmit={handleSendMessage} className="border-t border-border bg-background p-4">
+        <form
+          onSubmit={handleSendMessage}
+          className="border-t border-border bg-background p-4"
+        >
           <div className="relative flex items-center gap-2">
             <input
               type="text"

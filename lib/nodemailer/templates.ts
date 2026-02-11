@@ -97,7 +97,24 @@ export const WELCOME_EMAIL_TEMPLATE = `<!DOCTYPE html>
                     <!-- Header with Logo -->
                     <tr>
                         <td align="left" class="mobile-header-padding" style="padding: 40px 40px 20px 40px;">
-                            <img src="https://ik.imagekit.io/6wxutjfhl/marketup.jpeg?updatedAt=1770378852241" alt="MarketUP Logo" width="250" style="max-width: 100%; height: auto;">
+                          <div className="relative">
+                                    <Image
+                                      src="/favicon.ico"
+                                      alt="MarketUP Logo"
+                                      width={50}
+                                      height={50}
+                                      className="h-8 w-8 md:h-10 md:w-10 object-contain 
+                                         transition-transform duration-300 
+                                         group-hover:scale-105"
+                                    />
+                        
+                                    <span
+                                      className="absolute inset-0 rounded-full 
+                                         bg-green-500/20 blur-md 
+                                         opacity-0 group-hover:opacity-100 
+                                         transition-opacity duration-300"
+                                    />
+                                  </div>
                         </td>
                     </tr>
                     
@@ -259,8 +276,25 @@ export const NEWS_SUMMARY_EMAIL_TEMPLATE = `<!DOCTYPE html>
                     <!-- Header with Logo -->
                     <tr>
                         <td align="left" class="mobile-header-padding" style="padding: 40px 40px 20px 40px;">
-                            <img src="https://ik.imagekit.io/6wxutjfhl/marketup.jpeg?updatedAt=1770378852241" alt="MarketUP Logo" width="250" style="max-width: 100%; height: auto;">
-                        </td>
+                              <div className="relative">
+                                        <Image
+                                          src="/favicon.ico"
+                                          alt="MarketUP Logo"
+                                          width={50}
+                                          height={50}
+                                          className="h-8 w-8 md:h-10 md:w-10 object-contain 
+                                             transition-transform duration-300 
+                                             group-hover:scale-105"
+                                        />
+                            
+                                        <span
+                                          className="absolute inset-0 rounded-full 
+                                             bg-green-500/20 blur-md 
+                                             opacity-0 group-hover:opacity-100 
+                                             transition-opacity duration-300"
+                                        />
+                                      </div>   
+                                       </td>
                     </tr>
                     
                     <!-- Main Content -->
@@ -409,7 +443,24 @@ export const STOCK_ALERT_UPPER_EMAIL_TEMPLATE = `<!DOCTYPE html>
                     <!-- Header with Logo -->
                     <tr>
                         <td align="left" class="mobile-header-padding" style="padding: 40px 40px 20px 40px;">
-                            <img src="https://ik.imagekit.io/6wxutjfhl/marketup.jpeg?updatedAt=1770378852241" alt="MarketUP Logo" width="250" style="max-width: 100%; height: auto;">
+                              <div className="relative">
+                                        <Image
+                                          src="/favicon.ico"
+                                          alt="MarketUP Logo"
+                                          width={50}
+                                          height={50}
+                                          className="h-8 w-8 md:h-10 md:w-10 object-contain 
+                                             transition-transform duration-300 
+                                             group-hover:scale-105"
+                                        />
+                            
+                                        <span
+                                          className="absolute inset-0 rounded-full 
+                                             bg-green-500/20 blur-md 
+                                             opacity-0 group-hover:opacity-100 
+                                             transition-opacity duration-300"
+                                        />
+                                      </div>
                         </td>
                     </tr>
                     
@@ -618,7 +669,24 @@ export const STOCK_ALERT_LOWER_EMAIL_TEMPLATE = `<!DOCTYPE html>
                     <!-- Header with Logo -->
                     <tr>
                         <td align="left" class="mobile-header-padding" style="padding: 40px 40px 20px 40px;">
-                            <img src="https://ik.imagekit.io/6wxutjfhl/marketup.jpeg?updatedAt=1770378852241" alt="MarketUP Logo" width="250" style="max-width: 100%; height: auto;">
+                              <div className="relative">
+                                        <Image
+                                          src="/favicon.ico"
+                                          alt="MarketUP Logo"
+                                          width={50}
+                                          height={50}
+                                          className="h-8 w-8 md:h-10 md:w-10 object-contain 
+                                             transition-transform duration-300 
+                                             group-hover:scale-105"
+                                        />
+                            
+                                        <span
+                                          className="absolute inset-0 rounded-full 
+                                             bg-green-500/20 blur-md 
+                                             opacity-0 group-hover:opacity-100 
+                                             transition-opacity duration-300"
+                                        />
+                                      </div>
                         </td>
                     </tr>
                     
@@ -818,7 +886,24 @@ export const VOLUME_ALERT_EMAIL_TEMPLATE = `<!DOCTYPE html>
                     <!-- Header with Logo -->
                     <tr>
                         <td align="left" class="mobile-header-padding" style="padding: 40px 40px 20px 40px;">
-                            <img src="https://ik.imagekit.io/6wxutjfhl/marketup.jpeg?updatedAt=1770378852241" alt="MarketUP Logo" width="250" style="max-width: 100%; height: auto;">
+                              <div className="relative">
+                                        <Image
+                                          src="/favicon.ico"
+                                          alt="MarketUP Logo"
+                                          width={50}
+                                          height={50}
+                                          className="h-8 w-8 md:h-10 md:w-10 object-contain 
+                                             transition-transform duration-300 
+                                             group-hover:scale-105"
+                                        />
+                            
+                                        <span
+                                          className="absolute inset-0 rounded-full 
+                                             bg-green-500/20 blur-md 
+                                             opacity-0 group-hover:opacity-100 
+                                             transition-opacity duration-300"
+                                        />
+                                      </div>
                         </td>
                     </tr>
                     
@@ -1041,7 +1126,24 @@ export const INACTIVE_USER_REMINDER_EMAIL_TEMPLATE = `<!DOCTYPE html>
                     <!-- Header with Logo -->
                     <tr>
                         <td align="left" class="mobile-header-padding" style="padding: 40px 40px 20px 40px;">
-                            <img src="https://ik.imagekit.io/6wxutjfhl/marketup.jpeg?updatedAt=1770378852241" alt="MarketUP Logo" width="250" style="max-width: 100%; height: auto;">
+                              <div className="relative">
+                                        <Image
+                                          src="/favicon.ico"
+                                          alt="MarketUP Logo"
+                                          width={50}
+                                          height={50}
+                                          className="h-8 w-8 md:h-10 md:w-10 object-contain 
+                                             transition-transform duration-300 
+                                             group-hover:scale-105"
+                                        />
+                            
+                                        <span
+                                          className="absolute inset-0 rounded-full 
+                                             bg-green-500/20 blur-md 
+                                             opacity-0 group-hover:opacity-100 
+                                             transition-opacity duration-300"
+                                        />
+                                      </div>
                         </td>
 
 

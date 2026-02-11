@@ -12,10 +12,7 @@ const getLogoText = (source: string) =>
 const IndianMarketNews = ({ initialNews }: { initialNews: any[] }) => {
   const [page, setPage] = useState(1);
 
-  const totalPages = Math.max(
-    1,
-    Math.ceil(initialNews.length / PAGE_SIZE)
-  );
+  const totalPages = Math.max(1, Math.ceil(initialNews.length / PAGE_SIZE));
 
   const currentNews = useMemo(() => {
     const start = (page - 1) * PAGE_SIZE;
@@ -26,7 +23,6 @@ const IndianMarketNews = ({ initialNews }: { initialNews: any[] }) => {
 
   return (
     <div className="h-[600px] rounded-2xl bg-gradient-to-b from-[#101010] to-[#0a0a0a] border border-[#1f1f1f] shadow-xl flex flex-col overflow-hidden">
-
       <div className="px-5 py-4 border-b border-[#1f1f1f] sticky top-0 z-20 bg-[#0f0f0f]/80 backdrop-blur flex items-center gap-3">
         <div className="h-9 w-9 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center">
           <Newspaper size={18} />

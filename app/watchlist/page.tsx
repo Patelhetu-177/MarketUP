@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getWatchlist } from "@/lib/actions/watchlist.actions";
 import { WatchlistItem } from "@/components/watchlist/WatchlistItem";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export default async function WatchlistPage() {
   const watchlist = await getWatchlist();

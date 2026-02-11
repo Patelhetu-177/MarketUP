@@ -1,21 +1,21 @@
-
 import { unsubscribeUser } from "@/lib/actions/unsubscribe.action";
 import { NextRequest, NextResponse } from "next/server";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-    const { searchParams } = new URL(req.url);
-    const email = searchParams.get("email");
+  const { searchParams } = new URL(req.url);
+  const email = searchParams.get("email");
 
-    if (!email) {
-        return NextResponse.json({ error: "Email is required" }, { status: 400 });
-    }
+  if (!email) {
+    return NextResponse.json({ error: "Email is required" }, { status: 400 });
+  }
 
-    const result = await unsubscribeUser(email);
+  const result = await unsubscribeUser(email);
 
-    if (result.success) {
-        return new NextResponse(`
+  if (result.success) {
+    return new NextResponse(
+      `
             <html>
                 <body style="font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; background-color: #050505; color: white;">
                     <div style="text-align: center; padding: 40px; background-color: #141414; border-radius: 8px; border: 1px solid #30333A;">
@@ -25,10 +25,15 @@ export async function GET(req: NextRequest) {
                     </div>
                 </body>
             </html>
-        `, {
-            headers: { 'Content-Type': 'text/html' }
-        });
-    } else {
-        return NextResponse.json({ error: "Failed to unsubscribe" }, { status: 500 });
-    }
+        `,
+      {
+        headers: { "Content-Type": "text/html" },
+      },
+    );
+  } else {
+    return NextResponse.json(
+      { error: "Failed to unsubscribe" },
+      { status: 500 },
+    );
+  }
 }
