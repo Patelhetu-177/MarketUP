@@ -18,9 +18,16 @@ export function NovaChatAgent() {
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [sessionId, setSessionId] = useState("");
+  const [isClient, setIsClient] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+    
     const storedSessionId = localStorage.getItem("novaSessionId");
     const sid =
       storedSessionId || `nova-${Math.random().toString(36).substring(2, 11)}`;
@@ -38,7 +45,7 @@ export function NovaChatAgent() {
         timestamp: Date.now(),
       },
     ]);
-  }, []);
+  }, [isClient]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -46,6 +53,8 @@ export function NovaChatAgent() {
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isClient) return;
+    
     const trimmedInput = inputValue.trim();
     if (!trimmedInput || isLoading) return;
 
@@ -61,14 +70,14 @@ export function NovaChatAgent() {
     setIsLoading(true);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5678";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://n8n-agent.taila514cd.ts.net  ";
       const response = await fetch(`${apiUrl}/webhook/webhook/ai-agent-chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: trimmedInput,
           sessionId,
-          pageUrl: typeof window !== "undefined" ? window.location.href : "",
+          pageUrl: window.location.href,
         }),
       });
 
