@@ -70,7 +70,7 @@ export function NovaChatAgent() {
     setIsLoading(true);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://n8n-agent.taila514cd.ts.net  ";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://n8n-agent.tech";
       const response = await fetch(`${apiUrl}/webhook/webhook/ai-agent-chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
